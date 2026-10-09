@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Where in the world? | REST Countries</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+    <script src="js/app.js" defer></script>
+    <script src="js/config.js" defer></script>
+</head>
+<body>
+    <!-- Navbar -->
+     <header class="Navbar">
+        <div class="container navbar-content">
+            <h1 class="brand-title">Where is the world?</h1>
+            <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="Toggle dark mode">
+                <span class="theme-icon" aria-hidden="true">🌙</span>
+                <span class="theme-text">Dark Mode</span>
+            </button>
+        </div>
+     </header>
+
+     <!-- Main content -->
+      <main class="container">
+
+        <!-- home veiw -->
+         <div id="home-view">
+            <!-- search input and dropdown filter -->
+             <section class="controls-section" aria-label="Search and filter controls">
+                <div class="search-wrapper">
+                    <span class="search-icon" aria-hidden="true">🔍</span>
+                    <input
+                        type="search"
+                        id="search-input"
+                        placeholder="Search for a country..."
+                        aria-label="Search for a country"
+                        autocomplete="off"
+                    >
+
+                </div>
+
+                <div class="filter-wrapper">
+                    <select id="region-filter" aria-label="Filter countries by region">
+                        <option value="">Filter by Region</option>
+                         <option value="Africa">Africa</option>
+                          <option value="Americas">Americas</option>
+                          <option value="Asia">Asia</option>
+                         <option value="Europe">Europe</option>
+                          <option value="Oceania">Oceania</option>
+                    </select>
+                </div>
+
+
+
+
+             </section>
+
+
+         </div>
+
+      </main>
+    
+</body>
+</html>
