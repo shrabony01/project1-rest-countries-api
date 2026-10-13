@@ -41,3 +41,8 @@ Thumbs.db
 
 # Ignore private config
 js/config.js
+
+# Local reference files
+AGENTS.md
+CLAUDE.md
+README-template.md
