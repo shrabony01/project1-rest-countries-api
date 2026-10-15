@@ -152,5 +152,46 @@ function openDetailView(code){
             return `<button class="border-tag" type="button" data-code="${borderCode}"> ${displayName}</button>`;
         }).join("");
      }
-     
+
+     detailContent.innerHTML = `
+    <img src="${flag}" alt="Flag of ${name}" class="detail-flag" />
+    <div class="detail-info-wrapper">
+      <h2 class="detail-title">${name}</h2>
+      <div class="detail-columns">
+        <div>
+          <p><strong>Native Name:</strong> ${nativeName}</p>
+          <p><strong>Population:</strong> ${population}</p>
+          <p><strong>Region:</strong> ${region}</p>
+          <p><strong>Sub Region:</strong> ${subregion}</p>
+          <p><strong>Capital:</strong> ${capital}</p>
+        </div>
+        <div>
+          <p><strong>Top Level Domain:</strong> ${tld}</p>
+          <p><strong>Currencies:</strong> ${currencies}</p>
+          <p><strong>Languages:</strong> ${languages}</p>
+        </div>
+      </div>
+      <div class="border-countries">
+        <strong>Border Countries:</strong>
+        <div class="border-tags-container">${borderHTML}</div>
+      </div>
+    </div>
+  `;
+
+  homeView.classList.add("hidden");
+  countryDetailView.classList.remove("hidden");
+  window.scrollTo({top:0,behavior:"smooth"});
+
+  document.querySelectorAll(".border-tag").forEach(tag =>{
+    tag.addEventListener("click",()=>{
+        openDetailView(tag.getAttribute("data-code"));
+    });
+  });
+
+
 }
+function closeDetailView(){
+    countryDetailView.classList.add("hidden");
+    homeView.classList.remove("hidden");
+}
+backButton.addEventListener("click", closeDetailView);
