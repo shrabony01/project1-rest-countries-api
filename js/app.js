@@ -108,3 +108,49 @@ function filterCountries() {
 // Event listeners for search & filter inputs
 searchInput.addEventListener("input", filterCountries);
 regionFilter.addEventListener("change", filterCountries);
+
+//Detail Veiw Navigation
+function openDetailView(code){
+    const country = allCountries.find ( c =>
+        c.cca3 === code ||
+        c.alpha3Code === code ||
+        (c.name.common || c.name) === code
+    );
+    if(!country) return;
+
+    const name= country.name.common || country.name;
+    const flag = country.flags ? (country.flags.svg || country.flags.png):country.flag;
+    const nativeName = country.name? .nativeName
+        ?Object .values(country.name.nativeName)[0]?.common ||name
+        :country.nativeName||name;
+    const population=(country.population||0).toLocaleString();
+    const region = country.region|| "N/A";
+    const subregion = country.subregion || "N/A";
+    const capital = country.capital ? (Array.isArray(country.capital) ? country.capital[0]:country.capital): "N/A";
+    const tld = country.tld ? country.tld.join(", "): (country.topLevelDomain ? country.topLevelDomain.join(", "):"N/A");
+
+    let currencies = "N/A";
+    if(country.currencies){
+        currencies = Array.isArray(country.currencies)
+        ?country.currencies.map(c =>c.name).join(", ")
+        :Object.values(country.currencies).map(c => c.name).join(", ");
+
+    }
+     let languages = "N/A";
+     if(country.languages){
+        languages = Array.isArray(country.languages)
+        ?country.languages.map(l => l.name).join(", ")
+        :Object.values(country.languages).join(", ");
+     }
+     const borders = country.borders || [];
+     let borderHTML = "<span>None</span>";
+
+     if(borderHTML.length>0){
+        borderHTML=borders.map(borderCode =>{
+            const borderCountry = allCountries.find(c => c.cca3 === borderCode|| c.alpha3Code=== borderCode);
+            const displayName= borderCountry ? (borderCountry.name.common || borderCountry.name):borderCode;
+            return `<button class="border-tag" type="button" data-code="${borderCode}"> ${displayName}</button>`;
+        }).join("");
+     }
+     
+}
