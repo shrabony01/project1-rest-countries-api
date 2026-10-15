@@ -195,3 +195,25 @@ function closeDetailView(){
     homeView.classList.remove("hidden");
 }
 backButton.addEventListener("click", closeDetailView);
+
+//theme toggle with localstorage 
+function initializeTheme(){
+    const savedTheme = localStorage.getItem("theme");
+    if(savedTheme=== "dark"){
+        document.body.classList.add("dark-mode");
+        const themeText = themeToggleBtn.querySelector(".theme-text");
+        if(themeText) themeText.textContent="Light Mode";
+    }
+
+}
+function toggleTheme(){
+    document.body.classList.toggle("dark-mode");
+    const isDark = document .body.classList.contains("dark-mode");
+    localStorage.setItem("theme",isDark? "dark":"light");
+
+    const themeText = themeToggleBtn.querySelector(".theme-text");
+    if(themeText) themeText.textContent =isDark? "Light Mode": "Dark Mode";
+}
+themeToggleBtn.addEventListener("click",toggleTheme);
+
+initializeTheme();
