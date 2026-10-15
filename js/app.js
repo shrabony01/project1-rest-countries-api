@@ -61,7 +61,7 @@ function renderCountries(countries) {
         const flag = country.flags ? (country.flags.svg || country.flags.png) : country.flag;
         const population = (country.population || 0).toLocaleString();
         const region = country.region || "N/A";
-        const capital = country.capital ? (Array.isArray(country.capital) ? country.capital) : "N/A";
+        const capital = country.capital ? (Array.isArray(country.capital) ? country.capital[0]:country.capital) : "N/A";
         const code = country.cca3 || country.alpha3Code || name;
 
         return `
@@ -77,15 +77,16 @@ function renderCountries(countries) {
         `;
     }).join ("");
 
-    document.querySelectorAll(".country-card").forEach(()=> {
+    document.querySelectorAll(".country-card").forEach((card)=> {
         const code = card.getAttribute("data-code");
         card.addEventListener("click", () => openDetailView(code));
         card.addEventListener("keydown",(e) => {
             if (e.key === "Enter" || e.key === " ") {
                 e.preventDefault();
-                openDetailView(code);
+                if (typeof openDetailView === "function") openDetailView(code);
             }
         });
 
     });
 }
+fetchCountries();
