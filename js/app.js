@@ -90,3 +90,21 @@ function renderCountries(countries) {
     });
 }
 fetchCountries();
+// Search and Region Filtering Logic
+function filterCountries() {
+  const searchTerm = searchInput.value.toLowerCase().trim();
+  const selectedRegion = regionFilter.value;
+
+  const filtered = allCountries.filter(country => {
+    const commonName = (country.name.common || country.name || "").toLowerCase();
+    const matchesSearch = commonName.includes(searchTerm);
+    const matchesRegion = selectedRegion === "" || country.region === selectedRegion;
+    return matchesSearch && matchesRegion;
+  });
+
+  renderCountries(filtered);
+}
+
+// Event listeners for search & filter inputs
+searchInput.addEventListener("input", filterCountries);
+regionFilter.addEventListener("change", filterCountries);
