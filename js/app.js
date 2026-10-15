@@ -89,7 +89,7 @@ function renderCountries(countries) {
 
     });
 }
-fetchCountries();
+
 // Search and Region Filtering Logic
 function filterCountries() {
   const searchTerm = searchInput.value.toLowerCase().trim();
@@ -120,7 +120,7 @@ function openDetailView(code){
 
     const name= country.name.common || country.name;
     const flag = country.flags ? (country.flags.svg || country.flags.png):country.flag;
-    const nativeName = country.name? .nativeName
+    const nativeName = country.name?.nativeName
         ?Object .values(country.name.nativeName)[0]?.common ||name
         :country.nativeName||name;
     const population=(country.population||0).toLocaleString();
@@ -142,16 +142,16 @@ function openDetailView(code){
         ?country.languages.map(l => l.name).join(", ")
         :Object.values(country.languages).join(", ");
      }
-     const borders = country.borders || [];
-     let borderHTML = "<span>None</span>";
+const borders = country.borders || [];
+let borderHTML = "<span>None</span>";
 
-     if(borderHTML.length>0){
-        borderHTML=borders.map(borderCode =>{
-            const borderCountry = allCountries.find(c => c.cca3 === borderCode|| c.alpha3Code=== borderCode);
-            const displayName= borderCountry ? (borderCountry.name.common || borderCountry.name):borderCode;
-            return `<button class="border-tag" type="button" data-code="${borderCode}"> ${displayName}</button>`;
-        }).join("");
-     }
+if (borders.length > 0) {
+  borderHTML = borders.map(borderCode => {
+    const borderCountry = allCountries.find(c => c.cca3 === borderCode || c.alpha3Code === borderCode);
+    const displayName = borderCountry ? (borderCountry.name.common || borderCountry.name) : borderCode;
+    return `<button class="border-tag" type="button" data-code="${borderCode}">${displayName}</button>`;
+  }).join("");
+}
 
      detailContent.innerHTML = `
     <img src="${flag}" alt="Flag of ${name}" class="detail-flag" />
@@ -217,3 +217,4 @@ function toggleTheme(){
 themeToggleBtn.addEventListener("click",toggleTheme);
 
 initializeTheme();
+fetchCountries();
