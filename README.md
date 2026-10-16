@@ -2,7 +2,7 @@
 
 A responsive web application that fetches, filters, and displays world country data utilizing the REST Countries API with an offline fallback mechanism and persistent dark mode styling.
 
-## Links
+## Links : https://imaginative-faun-40f597.netlify.app
 - 
 
 ## Features
@@ -20,11 +20,19 @@ A responsive web application that fetches, filters, and displays world country d
 - Modern Vanilla JavaScript (ES6+, `async/await`, Fetch API, DOM manipulation)
 - LocalStorage Web API
 
-## Personal Reflection
 
-### What I Learned
-Through this project, I deepened my understanding of handling asynchronous JavaScript workflows, parsing nested API response structures (such as localized native names and currency objects), and building state-driven user interfaces without heavy frontend frameworks. I also implemented defensive coding patterns—such as handling network drops via local JSON fallbacks and structuring configuration files (`js/config.js`) to adhere to Git security best practices.
+## Project Reflection
 
-### Challenges & Solutions
-1. **Nested Data Parsing:** Some countries format currencies or languages as arrays, while others format them as key-value objects. I resolved this by checking data structures dynamically using `Array.isArray()` and `Object.values()`.
-2. **Missing Properties:** Island nations lack land borders. I implemented conditional rendering so the application displays "None" cleanly rather than breaking on empty arrays.
+### 1. Challenges Encountered
+- **Inconsistent API Data:** When fetching data for all countries, I noticed that the properties were not always structured the same way. Some countries had currencies or languages formatted as arrays, while others had them as objects. Also, island countries like Japan or Australia didn't have border arrays, which caused errors when trying to read them.
+- **Timing and Rendering Bugs:** At first, my cards weren't showing up because of small syntax bugs—like a missing parameter inside my loop and an accidental space in my optional chaining operator (`? .`). Debugging these in the browser console showed me how sensitive JavaScript execution is when handling asynchronous data.
+
+### 2. How I Solved Them
+- **Dynamic Checks and Fallbacks:** I used `Array.isArray()` and `Object.values()` so the code checks the data format before trying to display it. For borders, I added a condition to check if the borders array actually has items, and if not, it cleanly displays "None".
+- **Defensive Fetching:** I wrapped my API call in a `try...catch` block. If the live REST Countries API has any network issues, the app immediately catches the error and loads the local `data.json` file as a backup so the site never stays blank.
+- **Clean Config Separation:** I kept my API URL inside a separate `js/config.js` file and added it to `.gitignore`, while providing a `js/config.example.js` so secret keys or local configs are never pushed to GitHub.
+
+### 3. Future Improvements
+- **Refactoring to React:** As we move into React next in class, I want to rebuild this project using components and state hooks instead of manually updating the DOM with `innerHTML`.
+- **URL Routing:** I would like to add real page routes (like `/country/albania`) so users can share a direct link to a specific country's detail page.
+- **Search Optimization:** Adding a small debounce to the search input would improve performance when typing quickly across large datasets.
